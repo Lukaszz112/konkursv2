@@ -1,0 +1,10 @@
+*{
+  font-family: 'Ubuntu';
+}
+
+body{
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Ubuntu';
+  background-color: wheat;
+}
