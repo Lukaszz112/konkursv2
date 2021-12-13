@@ -46,7 +46,7 @@ async function run() {
     }
 
     // replace console.dir with your callback to access individual elements
-    TrashList = [];
+    const TrashList = [];
     // await cursor.forEach(console.dir);
     await cursor.forEach(function listItems(x){
       console.log(x)
@@ -55,6 +55,7 @@ async function run() {
 
   } finally {
 
+    res.json(ThrashList);
     await client.close();
 
   }
@@ -64,6 +65,7 @@ async function run() {
 run().catch(console.dir);
 
 var axios = require('axios');
+const { res } = require('pino-std-serializers');
 var data = JSON.stringify({
     "collection": "ReCycleBase",
     "database": "TrashList",
