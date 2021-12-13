@@ -1,4 +1,34 @@
-const TrashList = [];
+const express = require('express')
+const app = express()
+var http = require('http');
+
+
+app.set('view-engine', 'ejs')
+
+app.use(express.static(__dirname + '/public'))
+
+app.use(express.urlencoded({ extended: false }))
+
+
+
+app.get('/filter', (req, res) => {
+  res.render('filter.ejs')
+})
+
+app.get('/collect', (req, res) => {
+  res.render('collect.ejs')
+})
+
+app.get('/about', (req, res) => {
+  res.render('about.ejs')
+})
+
+app.get('/recycling', (req, res) => {
+  res.render('recycling.ejs')
+})
+
+
+let TrashList = [];
 
 
 const { MongoClient } = require('mongodb');
@@ -92,6 +122,8 @@ async function run() {
     const query = {};
 
     const options = {
+      
+      
 
       projection: { _id: 0, Item: 1, trashType: 1 },
 
@@ -111,6 +143,7 @@ async function run() {
     TrashList = [];
     // await cursor.forEach(console.dir);
     await cursor.forEach(function listItems(x){
+
       TrashList.push(x)
     })
      
@@ -131,7 +164,7 @@ async function showList(){
 try {  
  await run().catch();
 } finally { 
-res.render('trash.ejs', {uri: uri, client: client, TrashList: TrashList, run: run()})
+  res.render('trash.ejs', {uri: uri, client: client, TrashList: TrashList, run: run()})
 }
 }
   
@@ -169,4 +202,5 @@ axios(config)
         console.log(error);
     });
 
-app.listen(3000)
+
+app.listen(3300)
