@@ -140,5 +140,33 @@ res.render('trash.ejs', {uri: uri, client: client, TrashList: TrashList, run: ru
 }
 )
 
+var axios = require('axios');
+var data = JSON.stringify({
+    "collection": "ReCycleBase",
+    "database": "TrashList",
+    "dataSource": "ReCycle",
+    "projection": {
+        "_id": 1
+    }
+});
+            
+var config = {
+    method: 'post',
+    url: 'https://data.mongodb-api.com/app/data-lotli/endpoint/data/beta/action/findOne',
+    headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Request-Headers': '*',
+        'api-key': "UnQbIgRCTTiX2IQmed9H1KafVywPCQ6EbL5YLqLDnzH6Mn0GkvR6G5U6JlSEY3Yb"
+    },
+    data : data
+};
+            
+axios(config)
+    .then(function (response) {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
 
 app.listen(3000)
